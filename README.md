@@ -17,10 +17,10 @@ For ease, a .devcontainer directory for those who use vscode IDE is also created
 
 - Partition data
 - Monitoring and tune top queries (pg_activity)
-- using copy (very fast) for insertion
+- using copy (very fast) for insertion and queries  
   
 
-### Requirement
+### Requirements
 ---
 ```
 Node.js
@@ -33,3 +33,5 @@ Vscode (remote container extension)
 ```
  yarn install && yarn start 
 ```
+ 
+Server will be running at http://localhost:3000/graphql 
