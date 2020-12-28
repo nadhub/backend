@@ -28,7 +28,7 @@ export const createApp = (): Koa => {
     context: {
       models,
     },
-    // formatError: errorHandler,
+    formatError: errorHandler,
   });
   router.get('/healthz', ctx => {
     ctx.body = { success: true};
@@ -39,12 +39,12 @@ export const createApp = (): Koa => {
   return app;
 };
 
-// const errorHandler = (err: Error) => {
-//   console.log('Error while running resolver', {
-//     error: err
-//   });
-//   return new Error('Internal server error');
-// };
+const errorHandler = (err: Error) => {
+  console.log('Error while running resolver', {
+    error: err
+  });
+  return new Error('Internal server error');
+};
 
 if (require.main === module) {
   main();
