@@ -1,17 +1,12 @@
 import { Model, DataTypes, HasOneSetAssociationMixin, HasOneGetAssociationMixin } from 'sequelize';
+import { IConcert } from '../../interfaces';
 import sequelize from '../../db';
-import Band from '../bands';
-import Venue from '../venues';
-
-interface IConcertAttributes {
-  bandid: number;
-  venueid: number;
-  date: Date;
-}
+import Band from '../band';
+import Venue from '../venue';
 
 // interface IConcertCreateAttributes extends Optional<IConcertAttributes, "id"> {}
 
-class Concert extends Model<IConcertAttributes> implements IConcertAttributes {
+class Concert extends Model<IConcert> implements IConcert {
   bandid!: number;
   venueid!: number;
   date!: Date;

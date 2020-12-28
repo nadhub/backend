@@ -1,16 +1,8 @@
 import { Model, DataTypes, HasManyGetAssociationsMixin, Association } from 'sequelize';
+import { IVenue } from '../../interfaces';
 import sequelize from '../../db';
-import Concert from '../concerts';
-
-interface IVenueAttributes {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-}
-
-
-class Venue extends Model<IVenueAttributes> implements IVenueAttributes {
+import Concert from '../concert';
+class Venue extends Model<IVenue> implements IVenue {
   id!: number;
   name!: string;
   latitude!: number;

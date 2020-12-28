@@ -1,15 +1,9 @@
 import { Model, DataTypes, HasManyGetAssociationsMixin, Association } from 'sequelize';
+import { IBand } from '../../interfaces';
 import sequelize from '../../db';
-import Venue from '../venues';
-import Concert from '../concerts';
-
-interface IBandAttributes {
-  id: number;
-  name: string;
-}
-
-
-class Band extends Model<IBandAttributes> implements IBandAttributes {
+import Venue from '../venue';
+import Concert from '../concert';
+class Band extends Model<IBand> implements IBandAttributes {
   public id!: number;
   public name!: string;
 
