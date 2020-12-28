@@ -1,9 +1,9 @@
 import { Model, DataTypes, HasManyGetAssociationsMixin, Association } from 'sequelize';
 import { IBand } from '../../interfaces';
 import sequelize from '../../db';
-import Venue from '../venue';
 import Concert from '../concert';
-class Band extends Model<IBand> implements IBandAttributes {
+
+class Band extends Model<IBand> implements IBand {
   public id!: number;
   public name!: string;
 
@@ -35,9 +35,9 @@ Band.init(
 
 Band.hasMany(Concert, {
   sourceKey: 'id',
-  foreignKey: 'bandid',
+  foreignKey: 'bandId',
   as: 'concerts',
   onDelete: 'CASCADE',
 });
 
-export default Venue;
+export default Band;

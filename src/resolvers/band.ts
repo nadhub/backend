@@ -1,11 +1,11 @@
-import { IBand, IConcert } from '../interfaces';
+import { IBand, IConcert, IContext } from '../interfaces';
 
 export default {
   Query: {
-    venues: async (_, __, ctx): Promise<IBand[]> => {
+    bands: async (_, __, { models }: IContext): Promise<IBand[]> => {
       let bands;
         try {
-          bands = await ctx.models.BandModel.findAll();
+          bands = await models.bandModel.findAll();
         } catch (e) {
           console.log(e);
         }
@@ -13,10 +13,10 @@ export default {
     }
   },
   Band: {
-    concerts: async (parent: IBand, _, ctx): Promise<IConcert[]> => {
-      const concerts = await ctx.models.ConcertModel.findAll({
+    concerts: async ({ id }: IBand, _, { models }: IContext): Promise<IConcert[]> => {
+      const concerts = await models.concertModel.findAll({
         where: {
-          bandid: parent.id,
+          bandId: id,
         }
       });
       return concerts;

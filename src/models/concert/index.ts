@@ -7,8 +7,8 @@ import Venue from '../venue';
 // interface IConcertCreateAttributes extends Optional<IConcertAttributes, "id"> {}
 
 class Concert extends Model<IConcert> implements IConcert {
-  bandid!: number;
-  venueid!: number;
+  bandId!: number;
+  venueId!: number;
   date!: Date;
 
   public getBand!: HasOneGetAssociationMixin<Band>;
@@ -20,12 +20,12 @@ class Concert extends Model<IConcert> implements IConcert {
 
 Concert.init(
   {
-    bandid: {
+    bandId: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
       allowNull: false,
     },
-    venueid: {
+    venueId: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
       allowNull: false,

@@ -1,10 +1,10 @@
-import { IVenue, IConcert } from '../interfaces';
+import { IVenue, IConcert, IContext } from '../interfaces';
 export default {
   Query: {
-    venues: async (_, __, ctx): Promise<IVenue[]> => {
+    venues: async (_, __, { models }: IContext): Promise<IVenue[]> => {
       let venues;
         try {
-          venues = await ctx.models.VenueModel.findAll();
+          venues = await models.venueModel.findAll();
         } catch (e) {
           console.log(e);
         }
@@ -12,10 +12,10 @@ export default {
     }
   },
   Venue: {
-    concerts: async (parent: IVenue, _, ctx): Promise<IConcert[]> => {
-      const concerts = await ctx.models.ConcertModel.findAll({
+    concerts: async ({ id }: IVenue, _, { models }: IContext): Promise<IConcert[]> => {
+      const concerts = await models.concertModel.findAll({
         where: {
-          venueid: parent.id,
+          venueId: id,
         }
       });
       return concerts;

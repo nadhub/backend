@@ -1,3 +1,5 @@
+import { IModels } from './models';
+
 export interface IBand {
   id: number;
   name: string; 
@@ -11,7 +13,11 @@ export interface IVenue {
 }
 
 export interface IConcert {
-  bandid: number;
-  venueid: number;
+  bandId: number;
+  venueId: number;
   date: Date;
+}
+
+export interface IContext {
+  models: IModels;
 }

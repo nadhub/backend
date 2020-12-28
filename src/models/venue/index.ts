@@ -44,7 +44,7 @@ Venue.init(
 
 Venue.hasMany(Concert, {
   sourceKey: 'id',
-  foreignKey: 'venueid',
+  foreignKey: 'venueId',
   as: 'concerts',
   onDelete: 'CASCADE',
 });
