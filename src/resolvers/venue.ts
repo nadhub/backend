@@ -1,4 +1,4 @@
-import { IVenue, IConcert, IContext } from '../interfaces';
+import { IVenue, IContext, IPoint } from '../interfaces';
 export default {
   Query: {
     venues: async (_, __, { models }: IContext): Promise<IVenue[]> => {
@@ -11,14 +11,27 @@ export default {
         return venues;
     }
   },
-  Venue: {
-    concerts: async ({ id }: IVenue, _, { models }: IContext): Promise<IConcert[]> => {
-      const concerts = await models.concertModel.findAll({
-        where: {
-          venueId: id,
-        }
+  Mutation: {
+    /**
+     * @param _ create a venue entry
+     * location fiels is a geography point.
+     * We'de add index postgis for this field
+     * @param param1
+     * @param param2
+     */
+    addVenue: async(_, {id, name, latitude, longitude }: IVenue, { models }: IContext): Promise<IVenue> => {
+      const venue = models.venueModel.build({
+        id,
+        name,
+        latitude,
+        longitude
       });
-      return concerts;
-    }
+      const point: IPoint = { type: 'Point',
+      coordinates: [ venue.longitude, venue.latitude ],
+      };
+      venue.location = point;
+      await venue.save();
+      return venue;
+    },
   }
 };

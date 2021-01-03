@@ -5,6 +5,7 @@
   "scripts": {
     "loadData": "ts-node ./src/db/loadData.ts",
     "start": "nodemon --watch 'src/**' --ext 'ts' --ignore 'test/**' --exec 'ts-node src/index.ts' ",
+    "debug": "node --inspect-brk ./node_modules/.bin/ts-node ./src/index.ts",
     "build": "tsc",
     "test": "jest"
   },

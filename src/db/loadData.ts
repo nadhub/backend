@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { IPoint, IVenue } from '../interfaces';
 import models from '../models';
 
 
@@ -15,8 +16,7 @@ const loadInialData = async () => {
   const bandsCount = (await models.bandModel.findAndCountAll()).count;
   const venuesCount = (await models.venueModel.findAndCountAll()).count;
   const concertsCount = (await models.concertModel.findAndCountAll()).count;
-  // const venuesCount = (await models.venueModel.findAndCountAll()).count;
-  // const concertCount = (await models.concertModel.findAndCountAll()).count;
+
   if (bandsCount === 0) {
     const bandsDataArray = JSON.parse(bandsJson.toString());
     await models.bandModel.bulkCreate(bandsDataArray);
@@ -24,7 +24,9 @@ const loadInialData = async () => {
   }
   if (venuesCount === 0) {
     const venuesDataArray = JSON.parse(venusJson.toString());
-    await models.venueModel.bulkCreate(venuesDataArray);
+    for (const venue of venuesDataArray) {
+      await insertVenue(venue);
+    }
     console.log('End inserting venues data!!');
   }
   if (concertsCount === 0) {
@@ -32,6 +34,17 @@ const loadInialData = async () => {
     await models.concertModel.bulkCreate(concertsDataArray);
     console.log('End inserting concerts data!!');
   }
+};
+
+const insertVenue = async (venue: IVenue) => {
+  
+  const buildVenue = models.venueModel.build(venue);
+  const point: IPoint = {  
+    type: 'Point',
+    coordinates: [ venue.longitude, venue.latitude ],
+    };
+  buildVenue.location=point;
+  await buildVenue.save();
 };
 
 loadInialData();

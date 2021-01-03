@@ -1,32 +1,23 @@
-import { Model, DataTypes, HasOneSetAssociationMixin, HasOneGetAssociationMixin } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import { IConcert } from '../../interfaces';
 import sequelize from '../../db';
-import Band from '../band';
-import Venue from '../venue';
-
-// interface IConcertCreateAttributes extends Optional<IConcertAttributes, "id"> {}
 
 class Concert extends Model<IConcert> implements IConcert {
   bandId!: number;
   venueId!: number;
   date!: Date;
-
-  public getBand!: HasOneGetAssociationMixin<Band>;
-  public hasBand!: HasOneSetAssociationMixin<Band, number>;
-  public getVenue!: HasOneGetAssociationMixin<Venue>;
-  public hasVenue!: HasOneSetAssociationMixin<Venue, number>;
   
 }
 
 Concert.init(
   {
     bandId: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
     },
     venueId: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
     },
@@ -34,6 +25,10 @@ Concert.init(
       type: new DataTypes.DATE,
       primaryKey: true,
       allowNull: false,
+      get () {
+        const dateValue = this.getDataValue('date');
+        return new Date(dateValue).getTime();
+      }
     },
   },
   {

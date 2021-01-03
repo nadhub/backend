@@ -1,4 +1,4 @@
-import { IBand, IConcert, IContext } from '../interfaces';
+import { IBand, IContext } from '../interfaces';
 
 export default {
   Query: {
@@ -10,16 +10,6 @@ export default {
           console.log(e);
         }
         return bands;
-    }
-  },
-  Band: {
-    concerts: async ({ id }: IBand, _, { models }: IContext): Promise<IConcert[]> => {
-      const concerts = await models.concertModel.findAll({
-        where: {
-          bandId: id,
-        }
-      });
-      return concerts;
     }
   }
 };

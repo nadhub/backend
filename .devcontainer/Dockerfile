@@ -11,6 +11,11 @@ RUN if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then \
         && chown -R $USER_UID:$USER_GID /home/node \
         && chown -R $USER_UID:root /usr/local/share/nvm /usr/local/share/npm-global; \
     fi
+#install psql client
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add \
+    && echo deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main > /etc/apt/sources.list.d/pgdg.list \
+    && apt update \
+    && apt -y install postgresql-client-13
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \

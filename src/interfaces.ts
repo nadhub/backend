@@ -5,11 +5,17 @@ export interface IBand {
   name: string; 
 }
 
+export interface IPoint {
+  type: string;
+  coordinates: number[];
+}
+
 export interface IVenue {
   id: number;
   name: string;
   longitude: number;
   latitude: number;
+  location?: IPoint;
 }
 
 export interface IConcert {
@@ -20,4 +26,11 @@ export interface IConcert {
 
 export interface IContext {
   models: IModels;
+}
+
+export interface ISearchCriteria {
+  bandIds?: number[];
+  latitude?: number;
+  longitude?: number;
+  radius?: number;
 }
