@@ -1,4 +1,4 @@
-# Technical test - WeMaintain
+# ///
 
 Single API using Koa, apollo-server-koa and sequelize with postgres dialect
 
